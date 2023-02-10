@@ -1,0 +1,73 @@
+{%load static%}
+<div class="bg-light py-2 px-4 nav_div me-5">
+<div class="p-3">
+  <a href="/">
+    <img src="{% static 'logo.png' %}" height="40" alt="logo">
+  </a>
+</div>
+{% if home_active%}
+<div class="nav flex-column nav-pills py-3" 
+aria-orientation="vertical">
+
+<!-- <button class="nav-link {{detail_active}}  mb-3" 
+      
+    aria-selected="true">
+    <i class="fa fa-eye" aria-hidden="true"></i>
+    Ongoing
+</button> -->
+<button class="nav-link {{home_active}} mb-3 " id="v-pills-home-tab" data-bs-toggle="pill"
+    data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+    aria-selected="true">
+    <i class="fa fa-home" aria-hidden="true"></i> 
+    Home
+</button>
+<button class="nav-link mb-3" id="v-pills-today-tab" data-bs-toggle="pill"
+    data-bs-target="#v-pills-today" type="button" role="tab" aria-controls="v-pills-today"
+    aria-selected="false">
+    <i class="fa fa-cogs" aria-hidden="true"></i> 
+    Today
+</button>
+<button class="nav-link mb-3" id="v-pills-history-tab" data-bs-toggle="pill"
+    data-bs-target="#v-pills-history" type="button" role="tab" aria-controls="v-pills-history"
+    aria-selected="false">
+    <i class="fa fa-history" aria-hidden="true"></i> 
+    History
+</button>
+<button class="nav-link mb-3" id="v-pills-unsettled-tab" data-bs-toggle="pill"
+    data-bs-target="#v-pills-unsettled" type="button" role="tab"
+    aria-controls="v-pills-unsettled" aria-selected="false">
+    <i class="fa fa-chain-broken" aria-hidden="true"></i> 
+    Unsettled
+</button>
+</div>
+{%else%}
+<div class="nav flex-column nav-pills py-3" 
+aria-orientation="vertical">
+
+<button class="nav-link {{detail_active}}  mb-3" 
+      
+    aria-selected="true">
+    <i class="fa fa-eye" aria-hidden="true"></i>
+    Ongoing
+</button>
+<a class="nav-link mb-3 "  href="/"
+    aria-selected="true">
+    <i class="fa fa-home" aria-hidden="true"></i>
+     Home
+</a>
+<a class="nav-link mb-3 "  href="javascript:location.reload(); history.go(-1); "
+    aria-selected="true">
+    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+     Return
+</a>
+
+
+
+</div>
+{%endif%}
+</div>
+  <!-- 
+    #f9d67d
+    #fafcfe
+    #e7ebee
+   -->

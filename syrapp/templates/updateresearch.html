@@ -1,0 +1,29 @@
+{%extends 'index.html'%}
+{% block head_block%}
+<div class="container col py-2 mx-2">
+   <a href="/{{research.topic.id}}"> <h6 class="text-start fw-light">Topic: {{research.topic}}  </h6></a>
+    <div class="d-flex justify-content-between">
+        <h5 class="text-start text-org mb-0">Title: <span class="text-dark">{{research.title}}</span> </h5>
+           <span class="text-end">Last left: 
+            {{research.date}}
+           </span>
+    </div>
+    <hr>
+    <div>
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            {{ form.media  }}
+            <hr>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="  btn btn-primary btn-sm" >Save</button>
+            </div>
+        </form>
+       </div>
+
+
+</div>
+
+
+
+{%endblock%}

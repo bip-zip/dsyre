@@ -1,0 +1,181 @@
+<!doctype html>
+{% load static%}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" media='screen,print'  rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <style>
+    /* @media print{
+
+    } */
+    .bg-back{
+        background-image: url("{% static 'bg.svg' %}");
+      background-color: #e7ebee0e ;
+    }
+   
+
+    .btn{
+    border-radius: 0px !important;
+    font-size: 1.03rem;
+    letter-spacing: 1.1px;
+    font-weight: 600;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus{
+    outline:none;
+    box-shadow:none;
+}
+.form-control:focus, .form-control:active:focus, .form-control.active:focus{
+    outline: none;
+    box-shadow: none;
+}
+.form-control{
+    border-radius: 0px !important;
+}
+.main_div{
+    border-radius: 10px;
+    height: 90vh;
+ 
+}
+.list_div{
+    height: 60vh;
+    overflow-y: scroll;
+}
+.list_div2{
+    height: 70vh;
+    overflow-y: scroll;
+}
+.rounded{
+    border-radius: 6px !important;
+}
+::-webkit-scrollbar {
+  width:5px;
+}
+::-webkit-scrollbar-thumb {
+  background: #80808021; 
+  border-radius: 10px;
+}
+.nav_div{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    height: 90vh;
+   
+}
+.nav-pills .nav-link{
+    border-radius: 0px;
+    color: #5c5b5b;
+    background: transparent;
+}
+.nav-pills .nav-link:hover{
+    color: #fa6b05;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #f8f9fa;
+    background: #fa6b05;
+    border-bottom: none;
+}
+.btn-info{
+    background: #0594FA !important;
+    color: white;
+    border: #0594FA;
+}
+.text-info{
+    color: #0594FA !important;
+}
+.title_section{
+    width: 100%;
+}
+
+.input_boxes{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.input_boxes input:nth-child(1){
+    width: 35%;
+}
+.previous_icon{
+    border-top-left-radius: 15px !important;
+    border-bottom-left-radius: 15px !important;
+}
+.next_icon{
+    border-top-right-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
+}
+.btn-org{
+    background: #fa6b05;
+    color: white;
+}
+.text-org{
+    color:#fa6b05; 
+}
+.mt-alerts {
+    position:fixed;
+
+    left: 35%;
+    z-index: 999;
+}
+.form-check-input{
+    cursor: pointer;
+}
+.form-check-input:checked{
+   background-color: #fa6b05 !important;
+   border: 0;
+}
+  </style>
+
+
+    <title>d-syre</title>
+  </head>
+  <body class="bg-back">
+    
+
+    <div class="container-fluid py-2 px-0 mx-0 ">
+        {% include 'alertmessages.html' %}
+        <div class="container col-lg-9 mt-4 bg-white px-0 main_div shadow-sm ">
+            <div class="d-flex align-items-start">
+                
+               {% include 'navtab.html'%}
+               {% block head_block%}
+                <div class="container col py-2 mx-2">
+                    <h5 class="text-dark text-center  pt-3 mb-0 fw-light"> {% now "F d , Y" %}</h5>
+                    <h5 class="text-org text-center p-2 ">{% now "l" %}</h5>
+                    <hr class="bg-secondary mb-0 ">
+                    
+                    
+                    
+
+                    <div class="tab-content  mt-0  rounded mb-3" id="v-pills-tabContent">
+                        
+                        
+                     {% include 'home.html'%}
+                     {% include 'today.html'%}
+                     {% include 'history.html'%}
+                     {% include 'unsettled.html'%}
+                    
+                        
+            
+                </div>
+             
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endblock%}
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+  </body>
+</html>

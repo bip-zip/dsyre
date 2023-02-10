@@ -1,0 +1,139 @@
+
+ <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+ aria-labelledby="v-pills-home-tab">
+ <div class="container list_div ">
+     <div class=" row px-0">
+        <div class="p-1 col ">
+
+            <div class="mt-0  bg-white">
+              <h4 class="p-3 fw-light">Recent works</h4>
+              <table class="table ">
+                <thead>
+                  {% for i in td_topics%}
+                  <tr>
+                    <td><a type="button"   data-bs-toggle="modal" data-bs-target="#upModalh{{i.id}}"  class="text-org text-decoration-none"><i class="fa fs-5 fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                    <td class="fs-6" > <a href="/{{i.id}}" class="text-decoration-none text-dark"><h5><small>{{i.topic}}</small></h5></a></td>
+                   
+               
+                  </tr>
+
+                     <!-- update Modal -->
+    <div class="modal fade" id="upModalh{{i.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit your title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form  method="post" action="/update_topic">
+              <div class="modal-body">
+                  {% csrf_token %}
+                  <input type="text" class="form-control" placeholder="Topic" value="{{i.id}}" name="tid" hidden>
+                  <input type="text" class="form-control" placeholder="Topic" value="{{i.topic}}" name="topic">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                <button type="submit" class="btn btn-info text-white">Save changes</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+                  
+              {%empty%}
+              
+              <div class="welcome text-center p-2">
+               <div class="p-5">
+ 
+                <h4 class="fw-light"> What's up buddy!</h4>
+                
+       
+               </div>
+                
+       
+       
+            </div>
+
+            
+ 
+        
+                  {%endfor%}
+                </thead>
+             
+
+            </table>
+  
+             
+
+
+           
+        
+        
+            </div>
+        
+        
+         </div>
+         <div class="col">
+          <h4 class="p-3 fw-light">Shortcuts</h4>
+          <table class="table ">
+            <thead>
+              <tr>
+                <td><a type="button"  class="text-info text-decoration-none"><i class="fa fs-5 fa-present" aria-hidden="true"></i></a></td>
+                <td class="fs-6" > <a href="/attendance" class="text-decoration-none text-dark"><h5><small>Attendance</small></h5></a></td>
+               
+              </tr>
+        
+              <tr>
+                <td><a type="button"  class="text-info text-decoration-none"><i class="fa fs-5 fa-external-link" aria-hidden="true"></i></a></td>
+                <td class="fs-6" > <a href="/openJL" class="text-decoration-none text-dark"><h5><small>Open Jupyter Lab</small></h5></a></td>
+               
+              </tr>
+              <tr>
+                <td><a type="button"  class="text-info text-decoration-none"><i class="fa fs-5 fa-folder-open-o" aria-hidden="true"></i></a></td>
+                <td class="fs-6" > <a href="/openDF" class="text-decoration-none text-dark"><h5><small>Open dSYRE folder</small></h5></a></td>
+               
+              </tr>
+            
+              </thead>
+              </table>
+
+
+         </div>
+        
+     </div>
+ </div>
+ <div class="text-end">
+  <button type="button"  class="btn btn-info text-white mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <i class="fa fa-plus-circle" aria-hidden="true"></i> topic 
+  </button>
+ </div>
+</div>
+
+
+
+   
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Give your title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form  method="post" action="/add_topic">
+            <div class="modal-body">
+                {% csrf_token %}
+                <input type="text" class="form-control" placeholder="Topic" name="topic">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+              <button type="submit" class="btn btn-info text-white">Save changes</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+ 

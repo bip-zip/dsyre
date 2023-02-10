@@ -1,0 +1,188 @@
+{%extends 'index.html'%}
+{% load static %}
+{% block head_block%}
+<div class="container col py-2 mx-2">
+ 
+
+
+      <div class="d-flex justify-content-between pt-3">
+         <h5 class="text-start text-org mb-0">Attendance </h5>
+       
+      
+     </div>
+     <hr>
+     <div class="list_div2">
+  
+       <table class="table ">
+           <thead>
+             {% for i in attendance%}
+             <tr>
+               <td><a type="button"   data-bs-toggle="modal" data-bs-target="#upModals{{i.id}}"  class="text-org text-decoration-none"><i class="fa fs-5  fa-sticky-note" aria-hidden="true"></i></a></td>
+               <td class="fs-6" > <a href="/{{i.id}}" class="text-decoration-none text-dark"><h5><small>{{i.topic}}</small></h5></a></td>
+               <td>{{i.date}}</td>
+               <td>{{i.occassion}}</td>
+               {% if i.regular %}
+               <td title="OT"><i class="fa fa-calendar-times-o text-org" aria-hidden="true"></i></td>
+               {%else%}
+               <td title="regular"><i class="fa fa-check-square-o text-success" aria-hidden="true"></i></td>
+               {%endif%}
+          
+             </tr>
+
+
+
+
+                                  <!-- update Modal -->
+       <div class="modal fade" id="upModals{{i.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-lg">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title text-org" id="exampleModalLabel">{{i.date}} | <span class="text-dark">{{i.occassion}}</span></h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+          
+             <div class = 'p-3 ps-4 ms-5 '>
+               {% for y in i.attendances.all %}
+              <div class = 'infodiv row ' >
+               <div class=" form-check col-lg-3">
+                  <input type="checkbox" id="cb-{{y.id}}" onchange="checkAttend('{{y.id}}')"  class="form-check-input present-check" >
+                  <label class="form-check-label" for="exampleCheck1"><h6>{{y.employee}}</h6></label>
+               </div>
+               <div id="resultdiv{{y.id}}" class="col-lg-8"  data-cid="{{y.id}}">
+                  <form action="" >
+                     <div class="ms-4 row">
+                        <div class="me-2 col-lg-7 ">
+                           <textarea class="form-control" id="exampleFormControlTextarea1" rows="1">Reason </textarea>
+                        </div>
+                       <div class="col">
+                        <div class=" form-check">
+                           <input type="checkbox" id="{{y.id}}" data-cid="{{y.id}}"  class="form-check-input present-check" >
+                           <label class="form-check-label" for="exampleCheck1">Noticed</label>
+                        </div>
+                    
+
+                       </div>
+                      <div class="col">
+                        <button type="submit" class="btn  btn-sm text-white btn-org "><small><i class="fa fa-floppy-o" aria-hidden="true"></i></small></button>
+                      </div>
+                    
+                      </div>
+                    </form>
+               </div>
+              </div><hr>
+              {%endfor%}
+            </div>
+          
+             <form  method="post" action="/update_topic">
+                 <div class="modal-body">
+                     {% csrf_token %}
+                     <!-- <input type="text" class="form-control" placeholder="Topic" value="{{i.id}}" name="tid" hidden>
+                     <input type="text" class="form-control" placeholder="Topic" value="{{i.topic}}" name="topic"> -->
+                 </div>
+                 <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                   <button type="submit" class="btn btn-info text-white">Save changes</button>
+                 </div>
+             </form>
+           </div>
+         </div>
+       </div>
+
+
+
+
+
+             
+         {%empty%}
+ 
+          <div class="p-3 text-center">
+              <img src="{% static 'nodata.gif'%}" height="350"  alt="no data">
+          </div>
+
+       {%endfor%}
+   </thead>
+   </table>
+   </div>
+       
+       
+       {% include 'navbottoms.html'%}
+      </div>
+
+      <script>
+         
+         function checkAttend(id) {
+            let cb =  document.getElementById("cb-"+id)
+
+            if (cb.checked){
+               document.getElementById("resultdiv"+id).innerHTML = `
+               <form action="" >
+                     <div class="ms-4 row">
+                        <div class="me-2 col-lg-5 ">
+                           <input type="text" class="form-control" value='11:00' placeholder="Arrival Time"  name="arrival">
+                        </div>
+                       <div class="col-lg-5 me-2">
+                        <input type="text" class="form-control" value="5:00" placeholder="Departure Time"  name="departure">
+                       </div>
+                       <div class="col">
+                        <button type="submit" class="btn  btn-sm text-white btn-org "><small><i class="fa fa-floppy-o" aria-hidden="true"></i></small></button>
+                      </div>
+                      </div>
+                    </form>
+               
+           `;
+
+            }
+            else{
+               document.getElementById("resultdiv"+id).innerHTML = `
+               
+               <form action="" >
+                     <div class="ms-4 row">
+                        <div class="me-2 col-lg-7 ">
+                           <textarea class="form-control" id="exampleFormControlTextarea1" rows="1">Reason </textarea>
+                        </div>
+                       <div class="col">
+                        <div class=" form-check">
+                           <input type="checkbox" id="{{y.id}}" data-cid="{{y.id}}"  class="form-check-input present-check" >
+                           <label class="form-check-label" for="exampleCheck1">Noticed</label>
+                        </div>
+                    
+
+                       </div>
+                      <div class="col">
+                        <button type="submit" class="btn  btn-sm text-white btn-org "><small><i class="fa fa-floppy-o" aria-hidden="true"></i></small></button>
+                      </div>
+                    
+                      </div>
+                    </form>
+               
+               `
+
+            }
+           
+         }
+         
+         
+
+ $('.likebutton').click(function(){
+    var catid;
+    catid = $(this).attr("data-catid");
+    $.ajax(
+    {
+        type:"POST",
+        url: "/likepost",
+        data:{
+                 post_id: catid
+        },
+        success: function( data ) 
+        {
+            $( '#like'+ catid ).remove();
+            $( '#message' ).text(data);
+        }
+     })
+});
+
+         </script>
+
+
+
+{%endblock%}

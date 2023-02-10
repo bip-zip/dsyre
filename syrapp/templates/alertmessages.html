@@ -1,0 +1,39 @@
+{% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+      <!-- sweetalert js -->
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script>
+        var m = "{{ message }}";
+        Swal.fire({
+          icon: 'success',
+          iconHtml: '<i class="fa fa-check"></i>',
+          text: m,
+          confirmButtonColor: '#fa6b05',
+          color: '#000000',
+          background: 'white',
+          allowEscapeKey: false,
+          showClass: {
+            popup: 'my-icon'                     // disable popup animation css
+          },
+        });
+      </script>
+    {% else %}
+    <!-- sweetalert js -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      var m = "{{ message }}";
+      Swal.fire({
+        icon: 'error',
+        iconHtml: '<i class="fa fa-warning"></i>',
+        text: m,
+        confirmButtonColor: '#fff',
+        color: '#000',
+        background: 'rgba(0, 0, 0, 0.7)',
+        allowEscapeKey: false,
+        showClass: {
+          popup: 'my-icon'                     // disable popup animation css
+        },
+      });
+    </script>
+    {% endif %}
+  {% endfor %}

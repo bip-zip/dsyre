@@ -1,0 +1,57 @@
+{% load static %}
+<div class="tab-pane fade" id="v-pills-today" role="tabpanel"
+aria-labelledby="v-pills-today-tab">
+<div>
+    <table class="table ">
+        <thead>
+          {% for i in td_topics%}
+          <tr>
+            <td><a type="button"   data-bs-toggle="modal" data-bs-target="#upModalt{{i.id}}"  class="text-org text-decoration-none"><i class="fa fs-5 fa-pencil-square-o" aria-hidden="true"></i></a></td>
+            <td class="fs-6" > <a href="/{{i.id}}" class="text-decoration-none text-dark"><h5><small>{{i.topic}}</small></h5></a></td>
+            <td>{{i.startdate}}</td>
+            <td>ref: {{i.researches|length}}</td>
+            {% if i.unsettled %}
+            <td title="on-going"><i class="fa fa-tasks text-org" aria-hidden="true"></i></td>
+            {%else%}
+            <td title="settled"><i class="fa fa-check-square-o text-success" aria-hidden="true"></i></td>
+            {%endif%}
+          </tr>
+                               <!-- update Modal -->
+    <div class="modal fade" id="upModalt{{i.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit your title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form  method="post" action="/update_topic">
+              <div class="modal-body">
+                  {% csrf_token %}
+                  <input type="text" class="form-control" placeholder="Topic" value="{{i.id}}" name="tid" hidden>
+                  <input type="text" class="form-control" placeholder="Topic" value="{{i.topic}}" name="topic">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                <button type="submit" class="btn btn-info text-white">Save changes</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+          
+      {%empty%}
+ 
+
+    
+ <div class="p-5 text-center">
+  <img src="{% static 'nodata.gif'%}" height="350" alt="no data">
+ </div>
+
+    {%endfor%}
+</thead>
+             
+
+</table>
+
+</div>
+</div>

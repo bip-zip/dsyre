@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'syrapp',
     'tinymce',
-    'attendance'
+    'attendance',
+    'progressmeter'
 ]
 
 MIDDLEWARE = [

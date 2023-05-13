@@ -6,6 +6,7 @@ urlpatterns = [
     path('admin', admin.site.urls),
     path('', include('syrapp.urls')),
     path('attendance', include('attendance.urls')),
+    path('progress/', include('progressmeter.urls')),
        path('tinymce/', include('tinymce.urls')),
 ]
 

@@ -1,0 +1,136 @@
+{%extends 'index.html'%}
+{% load static %}
+{% block head_block%}
+<div class="container col py-2 mx-2">
+
+
+
+  <div class="d-flex justify-content-between pt-3">
+    <h5 class="text-start text-org mb-0"><i class="fa fa-spinner fs-5"></i> Progress Meter </h5>
+
+
+  </div>
+  <hr>
+  <div class="list_div2">
+
+
+    {% for i in ptopics%}
+    <div class="border border-light p-3 mb-2">
+      <div class="d-flex justify-content-between">
+        {% if i.completed %}
+        <div title="Completed"><i class="fa fa-check-square-o text-success" aria-hidden="true"></i></div>
+        <div class="fs-6 ms-2"> <a href="/progress/{{i.id}}" class="text-decoration-none text-dark "><b>{{i.title}}</b></a>
+        </div>
+        <div class="fs-6 ms-2"><small>{{i.completedstep}} step reached </small></div>
+        <div class="fs-6 ms-2"><small class="text-success">Deadline: {{i.deadline}}</small> </div>
+        {%else%}
+        <div title="On Going"><i class="fa fa-tasks text-primary" aria-hidden="true"></i></div>
+        <div class="fs-6 ms-2"> <a href="/progress/{{i.id}}" class="text-decoration-none text-dark "><b>{{i.title}}</b></a>
+        </div>
+        <div class="fs-6 ms-2"><small>{{i.completedstep}} step reached </small></div>
+        <div class="fs-6 ms-2"><small class="text-danger">Deadline: {{i.deadline}} ( {{i.remaining_days}} days remaining )</small> </div>
+        {%endif%}
+       
+      </div>
+
+      <div class="my-2">
+        {% if i.completed%}
+        <div class="progress" style="height: 20px;">
+          <div class="progress-bar progress-bar-striped bg-completed" role="progressbar"
+            aria-label="Success striped example" style="width: {{i.completed_percentage}}%" aria-valuenow="{{i.completed_percentage}}" aria-valuemin="0"
+            aria-valuemax="100">{{i.completed_percentage}}%</div>
+        </div>
+        {% else%}
+        <div class="progress" style="height: 20px;">
+          <div class="progress-bar progress-bar-striped bg-progress" role="progressbar"
+            aria-label="Success striped example" style="width: {{i.completed_percentage}}%" aria-valuenow="{{i.completed_percentage}}" aria-valuemin="0"
+            aria-valuemax="100">{{i.completed_percentage}}%</div>
+        </div>
+
+        {%endif%}
+        
+        <div class="d-flex my-2 justify-content-between">
+          {% if i.next_task%}
+          <div title="{{i.next_task.desc}}" >
+            <span class="badge rounded-pill text-bg-primary">Current Task</span>
+             {{i.next_task}}
+          </div>
+          <div>
+            <a href="/progress/mark_completed/{{i.next_task.id}}" onclick="return confirm('Are you sure to head on to the next task ?')" class="text-decoration-none"><span class="badge rounded-pill text-bg-warning text-white"> <i class="fa fa-check"></i> mark completed</span></a>
+          </div>
+        
+        {%elif i.completed_percentage == 0%}
+          <div><small>No Tasks Assigned.</small> </div>
+        
+          {%else%}
+          <div><small class="text-success">All tasks completed.</small> </div>
+          {%if i.completed%}
+          
+          {%else%}
+          <a href="/progress/completed_all/{{i.id}}" onclick="return confirm('Are you sure? The decision made cannot be altered later.')" class="text-decoration-none"><span class="badge rounded-pill text-bg-success text-white"> <i class="fa fa-check"></i> mark done</span></a>
+
+          {%endif%}
+        </div>
+
+          {%endif%}
+      </div>
+  </div>
+</div>
+
+
+        {%empty%}
+
+        <div class="p-3 text-center">
+          <img src="{% static 'nodata.gif'%}" height="350" alt="no data">
+
+        </div>
+
+
+        {%endfor%}
+     
+    
+  </div>
+  <div class="d-flex justify-content-end  mb-0">
+
+
+    <div class="btn-group m-2">
+  
+      <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-sm btn-info me-1 text-white ">
+        <small>Add Activity</small>
+      </button>
+  
+    </div>
+  
+  </div>
+
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Give your activity a title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post" action="/progress/add_activity">
+        <div class="modal-body">
+          {% csrf_token %}
+          <input type="text" class="form-control mb-2" placeholder="Title" name="title">
+          <input type="date" class="form-control" placeholder="Deadline" name="deadline">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+          <button type="submit" class="btn btn-info text-white">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+{%endblock%}

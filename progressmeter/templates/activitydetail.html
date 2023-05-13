@@ -1,0 +1,130 @@
+{%extends 'index.html'%}
+{% load static %}
+
+{% block head_block%}
+<div class="container col py-2 mx-2">
+    
+    <h6 class="text-dark text-end  pt-3 mb-0 fw-light">Started on: {{object.start_date}}</h6>
+    <h6 class="text-org text-end p-2 ">Deadline: {{object.deadline}} (12 days remaining)</h6>
+    <div class="d-flex justify-content-between">
+        <h5 class="text-start text-org">Activity: <span class="text-dark">{{object.title}}</span> </h5>
+       
+    </div>
+    <hr class="bg-secondary ">
+   <div class="list_div">
+    <div id="appform">
+
+    </div>
+    {%for i in object.orderdedtasks %}
+    <div class="p-2 mt-0 mb-1 ">
+        <form method="post" action="/progress/add_task">
+            {% csrf_token %}
+        <div class="d-flex justify-content-around">
+            
+            <div class=" col-lg-1">
+            
+                <input class="form-control" min="1" required  type="number"  name="step" id="" value="{{i.step}}">
+            </div>    
+            <div class=" col-lg-4">
+                <input class="form-control" required  type="text"  name="title" id="" value="{{i.title}}">
+                <input class="form-control"  required type="text"  name="activity" id="" value="{{object.id}}" hidden >
+                <input class="form-control"  type="text" required  name="task" id="" value="{{i.id}}" hidden >
+            </div>
+            <div class=" col-lg-6">
+                <textarea class="form-control" required  name="desc" cols="3" rows="1" >{{i.desc}}</textarea>
+            </div>
+            <div class="btn-group">
+                <a href="/progress/delt/{{i.id}}" onclick="return confirm('Are you sure to remove - {{i.title}} ?' );" class="btn fw-light text-danger btn-sm btn-light fw-4  me-1"><small><i class="fa fa-minus" aria-hidden="true"></i></small></a>
+                <button type="submit" class="btn  btn-sm text-white btn-org me-1"><small><i class="fa fa-floppy-o" aria-hidden="true"></i></small></button>
+            </div>
+        </div>
+
+   
+
+    <!-- modal -->
+    <div class="modal fade" id="modal{{i.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{i.id}}" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><a href="{{i.link}}" class="text-decoration-none text-dark" target="_blank" >{{i.title}}</a></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+          
+                {% if i.content|length == 0 %}
+                <div class="p-3 text-center">
+                    <img src="{% static 'nodata.gif' %}" height="350"  alt="no data">
+                </div>
+                {%else%}
+                {{i.content|safe}}
+                {%endif%}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn fw-light btn-sm btn-secondary" data-bs-dismiss="modal"><small>Close</small></button>
+              <a href="/update-research/{{i.id}}" type="button" class="btn fw-light btn-sm btn-primary me-1"><small>Edit</small></a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </form>
+</div>
+    
+    
+    {%empty%}
+    <div class="p-3 text-center">
+        <img src="{% static 'nodata.gif'%}" height="350"  alt="no data">
+    </div>
+    {%endfor%}
+   
+   </div>
+
+
+
+    {% include 'pbottoms.html' %}
+</div>
+<script>
+    document.getElementById("appbutton").onclick = function() {myFunction()};
+    
+    function myFunction() {
+        let msg = document.getElementById("msg")
+        if (msg!=null){
+            msg.remove()
+        }
+       
+      document.getElementById("appform").innerHTML += `
+      <div class="p-2 mt-0 mb-1">
+            <form method="post" action="/progress/add_task" >
+                {% csrf_token %}
+            <div class="d-flex justify-content-around">
+                <small class='text-org'><i class="fa fa-circle" aria-hidden="true"></i> </small>
+
+                <div class=" col-lg-1">
+            
+            <input class="form-control" min="1" placeholder='step' required  type="number"  name="step" id="" >
+        </div>    
+        <div class=" col-lg-4">
+            <input class="form-control" placeholder='title' required  type="text"  name="title" id="" >
+            <input class="form-control"  required type="text"  name="activity" id="" value="{{object.id}}" hidden >
+            <input class="form-control"  required type="text"  name="task" id="" value="000" hidden >
+        </div>
+        <div class=" col-lg-6">
+            <textarea class="form-control" required placeholder='description'  name="desc" cols="3" rows="1" ></textarea>
+        </div>
+        <div class="btn-group">
+            <button type="submit" class="btn  btn-sm text-white btn-org me-1"><small><i class="fa fa-floppy-o" aria-hidden="true"></i></small></button>
+        </div>
+            </div>
+    
+        </form>
+        </div>
+      `;
+    }
+    
+    
+    </script>
+
+
+{%endblock%}
+

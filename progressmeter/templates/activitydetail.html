@@ -5,7 +5,7 @@
 <div class="container col py-2 mx-2">
     
     <h6 class="text-dark text-end  pt-3 mb-0 fw-light">Started on: {{object.start_date}}</h6>
-    <h6 class="text-org text-end p-2 ">Deadline: {{object.deadline}} (12 days remaining)</h6>
+    <h6 class="text-org text-end p-2 ">Deadline: {{object.deadline}} ({{object.remaining_days}} days remaining)</h6>
     <div class="d-flex justify-content-between">
         <h5 class="text-start text-org">Activity: <span class="text-dark">{{object.title}}</span> </h5>
        

@@ -7,6 +7,7 @@ urlpatterns = [
     path('', include('syrapp.urls')),
     path('attendance', include('attendance.urls')),
     path('progress/', include('progressmeter.urls')),
+    path('finance/', include('finance.urls')),
        path('tinymce/', include('tinymce.urls')),
 ]
 

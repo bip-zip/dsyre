@@ -1,0 +1,34 @@
+{% load financefilter %}
+<div class="my-1 mb-5">
+    <div class="bg-blue mb-2">
+        <div class="d-flex  justify-content-between p-1   h5 ">
+            <div ><i class="fa fa-cc" aria-hidden="true"></i> Income </div>
+            <div>All Total: Rs. {{"income"|totalstatement}}</div>
+        </div>
+    </div>
+    {% for i in income %}
+    <div class="mb-4 border">
+        <p class="bg-success text-white p-2 fs-6  fw-bold mb-0">{{i.tdate}}</p>
+            {% for j in i.tdate|transbydate:'income'%}
+        <div class="d-flex justify-content-between p-2  mt-0 bg-light ">
+            <div >{{j.title}} </div>
+            <div>Rs. {{j.price}} </div>
+        </div>
+        {% endfor %}
+        <div class="d-flex justify-content-between p-2 mt-0 bg-blue2 fs-6 fw-bold">
+            <div >TOTAL </div>
+            <div>Rs. {{i.tdate|totaldateprice:'income'}} </div>
+        </div>
+        
+        
+    </div>
+    {%empty%}
+    <div class=" p-4 text-center">
+        <p class="p-5">No recorderd data</p>
+
+    </div>
+ 
+    {% endfor %}
+
+
+</div>

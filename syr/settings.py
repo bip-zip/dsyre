@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'syrapp',
     'tinymce',
     'attendance',
-    'progressmeter'
+    'progressmeter',
+    'finance'
 ]
 
 MIDDLEWARE = [

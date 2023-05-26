@@ -1,21 +1,24 @@
 {% load financefilter %}
-<div class="my-1 mb-5">
-    <div class="bg-red mb-4">
-        <div class="d-flex text-white justify-content-between p-3  h5 ">
-            <div >Savings </div>
-            <div>Rs. {{"savings"|totalstatement}}</div>
+<div class="my-1 mb-5 " style="height: 65vh;
+overflow-y: scroll;">
+    <div class="bg-blue mb-2">
+        <div class="d-flex  justify-content-between p-1   h5 ">
+            <div ><i class="fa fa-cc" aria-hidden="true"></i> Savings </div>
+            <div>All Total: Rs. {{"savings"|totalstatement}}</div>
         </div>
     </div>
+    <div>
+
     {% for i in savings %}
-    <div class="mb-4">
-        <p class="bg-red1 p-2 fs-6  fw-bold mb-0">{{i.tdate}}</p>
+    <div class="mb-4 border">
+        <p class="bg-info text-white p-2 fs-6  fw-bold mb-0">{{i.tdate|date:'F d, Y - l'}}</p>
             {% for j in i.tdate|transbydate:'savings'%}
-        <div class="d-flex justify-content-between p-2  mt-0 bg-light ">
-            <div >{{j.title}} </div>
-            <div>Rs. {{j.price}} </div>
+        <div class="d-flex justify-content-between p-2  mt-0  " style="cursor: pointer;" ondblclick="window.location.href='/finance/{{j.id}}/delete-record'">
+            <div title="Rs. {{j.price}}" >{{j.title}} </div>
+            <div title="{{j.title}}">Rs. {{j.price}} </div>
         </div>
         {% endfor %}
-        <div class="d-flex justify-content-between p-2 mt-0 bg-red2 fs-6 fw-bold">
+        <div class="d-flex justify-content-between p-2 mt-0 bg-blue2 fs-6 fw-bold">
             <div >TOTAL </div>
             <div>Rs. {{i.tdate|totaldateprice:'savings'}} </div>
         </div>
@@ -27,7 +30,10 @@
         <p class="p-5">No recorderd data</p>
 
     </div>
+ 
     {% endfor %}
+</div>
+
 
 
 </div>

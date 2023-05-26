@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from .models import FinanceSheet
 
 from .forms import FinanceSheetForm
@@ -17,8 +17,11 @@ def formSubmit(request):
         form = FinanceSheetForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(request.path_info)
+            return redirect('/finance')
         else:
             return HttpResponse("Something went wrong.")
         
-        
+def deleteRecord(request,id):
+    fid = FinanceSheet.objects.get(id=id)
+    fid.delete()
+    return redirect('/finance')

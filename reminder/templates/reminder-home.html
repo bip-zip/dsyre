@@ -1,0 +1,81 @@
+{% extends 'index.html'%}
+
+{% load static %}
+{% block head_block%}
+
+<div class="container col py-2 mx-2">
+  <div class="d-flex justify-content-between pt-3">
+    <h5 class="text-start text-org mb-0"><i class="fa fa-calendar-check-o fs-5"></i> Task Reminder </h5>
+  </div>
+  <hr>
+
+    <div class="my-3 ">
+        <ul class="nav nav-pills mb-3 " id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-todayrem-tab" data-bs-toggle="pill" data-bs-target="#pills-todayrem" type="button" role="tab" aria-controls="pills-todayrem" aria-selected="true">Today</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-futurerem-tab" data-bs-toggle="pill" data-bs-target="#pills-futurerem" type="button" role="tab" aria-controls="pills-futurerem" aria-selected="false">Future Reminders</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-pastrem-tab" data-bs-toggle="pill" data-bs-target="#pills-pastrem" type="button" role="tab" aria-controls="pills-loss" aria-selected="false">Past Reminders</button>
+            </li>
+          
+            
+            <li class="nav-item ms-auto">
+              <button class="text-white btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" ><i class="fa fa-plus-square" aria-hidden="true" ></i> Add Task</button>
+            </li>
+          </ul>
+          <hr>
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-todayrem" role="tabpanel" aria-labelledby="pills-todayrem-tab">
+                {% include 'today-reminders.html' %}
+            </div>
+           
+            <div class="tab-pane fade" id="pills-futurerem" role="tabpanel" aria-labelledby="pills-futurerem-tab">
+                {% include 'today-reminders.html' %}
+            </div>
+            <div class="tab-pane fade" id="pills-pastrem" role="tabpanel" aria-labelledby="pills-pastrem-tab">
+                {% include 'today-reminders.html' %}
+            </div>
+           
+            
+          </div>
+
+    </div>
+
+
+</div>
+
+<!-- add form modal -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addModalLabel">Add Task Reminder</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/reminder/formsubmmit" method="post">
+
+       
+        {% csrf_token %}
+        <table class="table">
+          {{form.as_table}}
+        </table>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-org btn-sm">Save changes</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+{% endblock %}

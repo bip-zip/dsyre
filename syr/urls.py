@@ -8,6 +8,7 @@ urlpatterns = [
     path('attendance', include('attendance.urls')),
     path('progress/', include('progressmeter.urls')),
     path('finance/', include('finance.urls')),
+    path('reminder/', include('reminder.urls')),
        path('tinymce/', include('tinymce.urls')),
 ]
 

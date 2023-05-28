@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'tinymce',
     'attendance',
     'progressmeter',
-    'finance'
+    'finance',
+    'reminder'
 ]
 
 MIDDLEWARE = [

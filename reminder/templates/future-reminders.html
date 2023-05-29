@@ -1,0 +1,52 @@
+{% load financefilter %}
+<div class="my-1 mb-5 " style="height: 65vh;
+overflow-y: scroll;">
+    <div class="bg-blue mb-2">
+        <div class="d-flex  justify-content-between p-1   h5 ">
+            <div ><i class="fa fa-th-list" aria-hidden="true"></i> Future' Tasks </div>
+            <div>Total Tasks: {{future_reminder|length}}</div>
+        </div>
+    </div>
+    <div>
+        <hr>
+
+  <!-- forloop -->
+  {% for i in future_reminder %}
+    <div class="my-3">
+        <div class="d-flex justify-content-between">
+            <div>
+            <input title="mark checked"  type="checkbox" style="cursor: pointer;" name="" id="">
+            </div>
+            <div >
+                <strong>{{i.title}}</strong>
+            </div>
+            <div title="{{i.desc}}">
+                {{i.desc|truncatechars:40}}
+            </div>
+            <div title="double click to remove the task"  style="cursor: pointer;" ondblclick="window.location.href='/reminder/{{i.id}}/delete-task'">
+                {{i.timedate}}
+            </div>
+            <div>
+{% if i.priority == 'low' %}
+                <i class="fa fa-square text-success" title="{{i.priority}} priority" aria-hidden="true"></i>
+{% elif i.priority == 'medium' %}
+                <i class="fa fa-square text-warning" title="{{i.priority}} priority" aria-hidden="true"></i>
+{% elif i.priority == 'high' %}
+                <i class="fa fa-square text-danger" title="{{i.priority}} priority" aria-hidden="true"></i>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+    
+   {%empty%}
+    <div class=" p-4 text-center">
+        <p class="p-5">No tasks assigned.</p>
+
+    </div>
+ 
+{%endfor%}
+</div>
+
+
+
+</div>

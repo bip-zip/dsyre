@@ -1,13 +1,14 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import TaskReminder
 from .forms import TaskReminderForm
-from django.utils.timezone import datetime
+from django.utils import timezone  
+# from django.utils.timezone import datetime
 def home(request):
     form = TaskReminderForm
-    today = datetime.today()
-    today_reminder = TaskReminder.objects.filter(timedate__year=today.year, timedate__month=today.month, timedate__day=today.day).order_by('priority')
-    future_reminder = TaskReminder.objects.filter(timedate__year__gte=today.year, timedate__month__gte=today.month, timedate__day__gte=today.day).order_by('priority')
-    past_reminder = TaskReminder.objects.filter(timedate__year__lte=today.year, timedate__month__lte=today.month, timedate__day__lte=today.day).order_by('priority')
+    # today = datetime.today()
+    today_reminder = TaskReminder.objects.filter(timedate__date=timezone.now()).order_by('priority')
+    future_reminder = TaskReminder.objects.filter(timedate__date__gt = timezone.now()).order_by('priority')
+    past_reminder = TaskReminder.objects.filter(timedate__date__lt=timezone.now()).order_by('priority')
     context={
         'form':form,
         'today_reminder':today_reminder,

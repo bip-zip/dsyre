@@ -1,10 +1,31 @@
+{% load financefilter %}
+
 <div class="my-1">
-    <div class="bg-purple mb-4">
-        <p class="text-white p-2 h4">Analysis</p>
+
+    <div class="row text-center bg-light p-2 mb-2">
+        <div class="col">Year - Month</div>
+        <div class="col">Expenses</div>
+        <div class="col">Income</div>
+        <div class="col">Savings</div>
     </div>
 
 
-    <p class="text-center p-5 m-5">Under construction</p>
+
+
+    {% for month, data in analysis.items%}
+    <div class="row text-center p-2 ">
+        <div class="col "><strong>{{ month}}</strong></div>
+        <div class="col bg-expenses text-white">{{data.expenses}}</div>
+        <div class="col bg-progress ">{{data.income}}</div>
+        <div class="col">{{data.savings}}</div>
+    </div>
+    {%endfor %}
+    <div class="row text-center p-2 mt-2">
+        <div class="col"></div>
+        <div class="col"><b>{{"expenses"|totalstatement}}</b></div>
+        <div class="col"><b>{{"income"|totalstatement}}</b></div>
+        <div class="col"><b>{{"savings"|totalstatement}}</b></div>
+    </div>
     
 
 
